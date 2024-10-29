@@ -1,50 +1,60 @@
 package be.api.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "user")
+@Entity
+@Table(name = "User", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "Email"),
+        @UniqueConstraint(columnNames = "Username"),
+        @UniqueConstraint(columnNames = "PhoneNumber")
+})
 public class User extends AbstractEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "UserId")
+    private int userId;
 
-    @Column(name = "name")
+    @Column(name = "Username")
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "Password")
     private String password;
 
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
 
-    @Column(name = "emailConfirmed")
-    private int emailConfirmed;
+    @Column(name = "EmailConfirmed")
+    private Boolean emailConfirmed;
 
-    @Column(name = "phone_number")
+    @Column(name = "PhoneNumber", length = 15)
     private String phoneNumber;
 
-    @Column(name = "firstName")
+    @Column(name = "FirstName", length = 50)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "LastName", length = 50)
     private String lastName;
 
-    @Column(name = "avatar")
-    private String avatar;
-
-    @Column(name = "googleUserId")
-    private String googleUserId;
-
-    @Column(name = "address")
+    @Column(name = "Address")
     private String address;
 
-    @Column(name = "isActive")
-    private String isActive;
+    @Column(name = "IsActive")
+    private Boolean isActive;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Role", nullable = false)
+    private UserRole role;
+
+    public enum UserRole {
+        ROLE_RESIDENT,
+        ROLE_COLLECTOR,
+        ROLE_RECYCLING_DEPOT,
+        ROLE_ADMIN
+    }
 }

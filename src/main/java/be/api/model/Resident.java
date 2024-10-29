@@ -8,18 +8,22 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "resident")
-public class Resident {
-
+@Entity
+@Table(name = "Resident")
+public class Resident extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "residentId")
-    private int id;
+    @Column(name = "ResidentId")  // Matches database schema
+    private int residentId;
 
-    @Column(name = "rewardPoints")
+    @Column(name = "RewardPoints")
     private int rewardPoints;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserId", referencedColumnName = "UserId")  // Foreign key to User table
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ApartmentId", referencedColumnName = "ApartmentId")  // Foreign key to Apartment table
+    private Apartment apartment;
 }

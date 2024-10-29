@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +28,7 @@ public class UserServices implements IUserServices {
         User user = modelMapper.map(userDTO, User.class);
         userRepository.save(user);
         log.info("User added successfully");
-        return user.getId();
+        return user.getUserId();
     }
 
     @Override
@@ -44,16 +45,7 @@ public class UserServices implements IUserServices {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
-        UserRequestDTO userDTO = new UserRequestDTO();
-        userDTO.setName(user.getName());
-        userDTO.setAge(user.getAge());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPhoneNumber(user.getPhoneNumber());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setCreatedAt(user.getCreatedAt());
-        userDTO.setUpdatedAt(user.getUpdatedAt());
-
-        return userDTO;
+        return modelMapper.map(user, UserRequestDTO.class);
     }
 
     @Override
