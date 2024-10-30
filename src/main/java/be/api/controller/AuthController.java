@@ -112,7 +112,6 @@ public class AuthController {
         return new ResponseData<>(HttpStatus.OK.value(), "Logout successful", authenticatedUsername);
     }
 
-    // Registration methods remain unchanged
     @PostMapping("/register/resident")
     public ResponseData<?> registerResident(@Valid @RequestBody UserRegistrationDTO userDto) {
         return registerUser(userDto, User.UserRole.ROLE_RESIDENT, "Resident registration successful");
