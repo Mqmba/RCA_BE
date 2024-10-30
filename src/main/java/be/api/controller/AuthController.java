@@ -100,6 +100,12 @@ public class AuthController {
 
         // Check if the token has already been blacklisted
         String token = (String) authentication.getCredentials();
+        if (token == null) {
+            logger.warn("Logout failed: No token found in authentication credentials");
+            return new ResponseError(HttpStatus.UNAUTHORIZED.value(), "No token found");
+        }
+
+
         if (tokenBlackListService.isTokenBlacklisted(token)) {
             logger.warn("Logout failed: Token has already been blacklisted");
             return new ResponseError(HttpStatus.UNAUTHORIZED.value(), "Token has already been blacklisted");
@@ -107,6 +113,8 @@ public class AuthController {
 
         // Blacklist the token for security
         tokenBlackListService.setTokenBlacklist(token, 3600);
+
+        SecurityContextHolder.clearContext();
 
         logger.info("Logout successful for username: {}", authenticatedUsername);
         return new ResponseData<>(HttpStatus.OK.value(), "Logout successful", authenticatedUsername);
