@@ -55,7 +55,6 @@ public class SecurityConfig {
                                         .maxAgeInSeconds(31536000) // 1 year
                         )
                 )
-                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

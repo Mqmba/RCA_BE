@@ -36,7 +36,7 @@ public class JwtTokenUtil {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour expiry for access token
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
