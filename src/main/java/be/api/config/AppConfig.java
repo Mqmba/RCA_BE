@@ -11,14 +11,14 @@ import java.util.List;
 public class AppConfig implements WebMvcConfigurer {
 
 
-    @Override
-    public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowCredentials(true)
-                .allowedOrigins("http://localhost:3000", "http://localhost:8080")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("*");
-    }
+//    @Override
+//    public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowCredentials(true)
+//                .allowedOrigins("http://localhost:3000", "https://localhost:8443")
+//                .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                .allowedHeaders("*");
+//    }
 
     @Bean
     public ModelMapper modelMapper() {
