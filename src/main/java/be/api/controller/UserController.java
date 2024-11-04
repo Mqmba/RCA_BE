@@ -53,7 +53,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("get-list-user-by-paging")
+    @GetMapping("get-list-user-by-paging")
     public ResponseData<List<UserRequestDTO>> getListUserByPaging(@RequestParam int pageNo, @RequestParam int pageSize) {
         try {
            return new ResponseData<>(HttpStatus.OK.value(), "List user found", userServices.getListUserByPaging(pageNo, pageSize));

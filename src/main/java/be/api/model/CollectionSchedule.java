@@ -18,5 +18,6 @@ public class CollectionSchedule extends AbstractEntity {
     private int collectionScheduleId;
     @Column(name = "scheduleDate")
     private Date scheduleDate;
-
+    @Column(name = "IsActive")
+    private Boolean isActive = true;
 }

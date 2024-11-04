@@ -56,6 +56,8 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/collectionSchedules/**").permitAll()
+                        .requestMatchers("/user/get-list-user-by-paging").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
